@@ -1,0 +1,56 @@
+{
+    "name": "macsidigital/xero-laravel",
+    "description": "Xero Laravel package",
+    "keywords": [
+        "macsidigital",
+        "xero-laravel"
+    ],
+    "homepage": "https://github.com/macsidigital/xero-laravel",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Colin Hall",
+            "email": "colin@macsi.co.uk",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "guzzlehttp/guzzle": "~6.0|~5.0|~4.0",
+        "guzzlehttp/oauth-subscriber": "0.3.*",
+        "illuminate/support": "5.8.*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "3.8.*",
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MacsiDigital\\Xero\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MacsiDigital\\Xero\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MacsiDigital\\Xero\\XeroServiceProvider"
+            ],
+            "aliases": {
+                "Xero": "MacsiDigital\\Xero\\XeroFacade"
+            }
+        }
+    }
+}
