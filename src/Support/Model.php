@@ -45,7 +45,7 @@ abstract class Model
     }
 
     /**
-     * Get the root node name.  Just the unqualified classname
+     * Get the unique key field
      *
      * @return string
      */
@@ -55,11 +55,11 @@ abstract class Model
     }
 
     /**
-     * Get the root node name.  Just the unqualified classname
+     * Get the object unique ID
      *
      * @return string
      */
-    public static function getID()
+    public function getID()
     {
         $index = $this->getKey();
         return $this->$index;
