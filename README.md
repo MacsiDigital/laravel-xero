@@ -131,7 +131,7 @@ Here is an example usage case for querying for a contact, creating if not found 
         'UnitAmount' => '1234.56',
         'AccountCode' => '200'
     ]));
-    $response = $invoice->save();
+    $invoice->save();
 ```
 
 ## Resources
