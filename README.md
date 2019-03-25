@@ -30,9 +30,9 @@ Ensure that the location of the RSA keys matches.
 
 Everything has been setup to be similar to Laravel syntax.
 
-We also use a little bit of magic to work with Xero's model names.  In Xero there are a few differnet modules (Accounting, Payroll AU etc.), at the minute we only support a small part of the accounting area, but we have set naming so that additional modules can be added in future.
+We also use a little bit of magic to work with Xero's model names.  In Xero there are a few different modules (Accounting, Payroll AU etc.), at the minute we only support a small part of the accounting area, but we have set naming so that additional modules can be added in future.
 
-So to use the conacts in the Accounting modelue we would use the following syntax.
+So to use the conacts in the Accounting module we would use the following syntax.
 
 ``` php
 	$xero = new \MacsiDigital\Xero\Xero;
@@ -41,7 +41,7 @@ So to use the conacts in the Accounting modelue we would use the following synta
 
 ## Find all
 
-The function returns a Laravel Collection
+The find all function returns a Laravel Collection so you can use all the Laravel Collection magic
 
 ``` php
 	$xero = new \MacsiDigital\Xero\Xero;
@@ -50,7 +50,7 @@ The function returns a Laravel Collection
 
 ## Filtered
 
-The function returns a Laravel Collection
+The filtered find function returns a Laravel Collection so you can use all the Laravel Collection magic
 
 ``` php
 	$xero = new \MacsiDigital\Xero\Xero;
