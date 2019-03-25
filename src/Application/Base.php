@@ -2,51 +2,44 @@
 
 namespace MacsiDigital\Xero\Application;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Subscriber\Oauth\Oauth1;
+use MacsiDigital\Zoom\Http\Request;
+use MacsiDigital\Xero\Support\Response;
 
-class Base
+abstract class Base
 {
 
-	protected $client;
+    protected $request;
 
-	protected $options = [
-        'headers' => [
-            'Accept' => 'application/json',
-            'Content-type' => 'application/json'
-        ]
-    ];
-
-    public function getClient() 
+    public function get($end_point)
     {
-    	return $this;
+        try{
+            return new Response($this->request->get($end_point));    
+        } catch(\Exception $e){
+            return new Response($e->getResponse());
+        }
     }
 
-    public function get($end_point, $variables=[], $options=[])
+    public function post($end_point, $fields)
     {
-    	$options = array_merge($this->options, $options);
-    	return $this->parse($this->client->get($end_point, $options));
+        try {
+            return new Response($this->request->post($end_point, $fields));
+        } catch (\Exception $e) {
+            return new Response($e->getResponse());
+        }
     }
 
-    public function post()
+    public function put($end_point, $fields)
     {
-    	
+        try {
+            return new Response($this->request->put($end_point, $fields));
+        } catch (\Exception $e) {
+            return new Response($e->getResponse());
+        }
     }
 
-    public function put()
+    public function delete($end_point)
     {
-    	
-    }
-
-    public function delete()
-    {
-    	
-    }
-
-    public function parse($response)
-    {
-        return json_decode($response->getBody()->getContents(), true);
+        return new Response($this->request->delete($end_point));
     }
 
 }

@@ -1,19 +1,27 @@
 <?php 
 namespace MacsiDigital\Xero\Support;
 
+use Illuminate\Support\Collection;
+
 abstract class Model
 {
     
     protected $attributes = [];
+    protected $relationships = [];
+    protected $query_string = '';
+    protected $methods = [];
+
+    public $response;
 
     const ENDPOINT = '';
     const NODE_NAME = '';
+    const KEY_FIELD = '';
 
     protected $client;
 
-    public function __construct($client)
+    public function __construct()
     {
-        $this->client = $client;
+        $this->client = app()->xero->client;
     }
 
     /**
@@ -37,6 +45,30 @@ abstract class Model
     }
 
     /**
+     * Get the root node name.  Just the unqualified classname
+     *
+     * @return string
+     */
+    public static function getKey()
+    {
+        return static::KEY_FIELD;
+    }
+
+    public function hasID() 
+    {
+        $index = $this->getKey();
+        if($this->$index != ''){
+            return true;    
+        }
+        return false;
+    }
+
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
      * Get an attribute from the model.
      *
      * @param  string  $key
@@ -48,9 +80,6 @@ abstract class Model
             return;
         }
 
-        // If the attribute exists in the attribute array or has a "get" mutator we will
-        // get the attribute's value. Otherwise, we will proceed as if the developers
-        // are asking for a relationship's value. This covers both types of values.
         if ($this->attributeExists($key)) {
             return $this->getAttributeValue($key);
         }
@@ -91,7 +120,25 @@ abstract class Model
     public function setAttribute($key, $value)
     {
         if($this->attributeExists($key)){
-            $this->attributes[$key] = $value;    
+            $this->attributes[$key] = $value;
+        }
+        return $this;
+    }
+
+    public function processRelationships()
+    {
+        foreach($this->relationships as $key => $class){
+            if(is_array($this->$key) && in_array($this->getKey(), $this->$key)){
+                if (!is_object($this->$key)) {
+                    $this->attributes[$key] = ($class)::make($this->$key);
+                }       
+            } else {
+                foreach($this->$key as $index => $item){
+                    if (!is_object($item)) {
+                        $this->attributes[$key][$index] = ($class)::make($item);
+                    }        
+                }
+            }
         }
         return $this;
     }
@@ -151,40 +198,19 @@ abstract class Model
         $this->unsetAttribuet($key);
     }
 
-    /**
-     * Handle dynamic method calls into the model.
-     *
-     * @param  string  $method
-     * @param  array  $parameters
-     * @return mixed
-     */
-    public function __call($method, $parameters)
-    {
-        if (in_array($method, ['increment', 'decrement'])) {
-            return $this->$method(...$parameters);
-        }
-
-        return $this->forwardCallTo($this->newQuery(), $method, $parameters);
-    }
-
-    /**
-     * Handle dynamic static method calls into the method.
-     *
-     * @param  string  $method
-     * @param  array  $parameters
-     * @return mixed
-     */
-    public static function __callStatic($method, $parameters)
-    {
-        return (new static)->$method(...$parameters);
-    }
-
     public static function make($attributes) 
     {
         $model = new static;
         foreach($attributes as $attribute => $value){
             $model->$attribute = $value;
         }
+        return $model;
+    }
+
+    public static function create($attributes) 
+    {
+        $model = static::make($attributes);
+        $model->save();
         return $model;
     }
 
@@ -196,11 +222,6 @@ abstract class Model
         return $this;
     }
 
-    public static function create($attributes) 
-    {
-        $this->make($attributes)->save();
-    }
-
     public function update($attributes) 
     {
         $this->fill($attributes)->save();
@@ -209,18 +230,100 @@ abstract class Model
 
     public function save()
     {
-
+        $index = $this->GetKey();
+        if($this->hasID()){
+            if(in_array('put', $this->methods)){
+                $this->response = $this->client->post($this->getEndpoint().'/'.$this->$index, $this->attributes);
+                if($this->response->getStatusCode() == '200'){
+                    return $this->response->getContents();
+                } else {
+                    return false;
+                }
+            }
+        } else {
+            if(in_array('post', $this->methods)){
+                $this->response = $this->client->post($this->getEndpoint(), $this->attributes);
+                if($this->response->getStatusCode() == '200'){
+                    $saved_item = $this->collect($this->response->getContents())->first();
+                    $this->$index = $saved_item->$index;    
+                    return $this->response->getContents();
+                } else {
+                    return false;
+                }
+            }
+        }
     }
 
-    public function where()
+    public function where($key, $operator, $value)
     {
+        if($this->query_string == ''){
+            $this->query_string = "?where=";
+        }
+        $this->query_string .= urlencode($key.$operator.'"'.$value.'"');
+        return $this;
+    }
 
+    public function first()
+    {
+        return $this->get()->first();
+    }
+
+    public function get()
+    {
+        if(in_array('get', $this->methods)){
+            $this->response = $this->client->get($this->getEndpoint().$this->query_string);
+            if($this->response->getStatusCode() == '200'){
+                return $this->collect($this->response->getContents());
+            } else {
+                return false;
+            }
+        }
     }
 
     public function all()
     {
-        $response = $this->client->get($this->getEndpoint());
-        dd($response);
+        if(in_array('get', $this->methods)){
+            $this->response = $this->client->get($this->getEndpoint());
+            if($this->response->getStatusCode() == '200'){
+                return $this->collect($this->response->getContents());
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public function find($id)
+    {
+        if(in_array('get', $this->methods)){
+            $this->response = $this->client->get($this->getEndpoint().'/'.$id);
+            if($this->response->getStatusCode() == '200'){
+                return $this->collect($this->response->getContents())->first();
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public function delete($id)
+    {
+        if(in_array('delete', $this->methods)){
+            $this->response = $this->collect($this->client->delete($this->getEndpoint().'/'.$id));
+            if($this->response->getStatusCode() == '200'){
+                return $this->response->getContents();
+            } else {
+                return false;
+            }
+        }
+        return;
+    }
+
+    protected function collect($response)
+    {
+        $items = [];
+        foreach($response[$this->getEndpoint()] as $item){
+            $items[] = static::make($item);
+        }
+        return new Collection($items);   
     }
 
 }

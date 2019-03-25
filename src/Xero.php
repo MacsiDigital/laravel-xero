@@ -8,7 +8,7 @@ use GuzzleHttp\Subscriber\Oauth\Oauth1;
 
 class Xero
 {
-    private $client;
+    public $client;
 
 	public function __construct($type='Private')
 	{
@@ -25,7 +25,7 @@ class Xero
 	public function bootApplication($type) 
 	{
 		$class = 'MacsiDigital\Xero\Application\\'.$type.'Application';
-		$this->client = (new $class())->getClient();
+		$this->client = (new $class());
 	}
 
     public function __get($key)
@@ -37,11 +37,17 @@ class Xero
     {
     	preg_match_all('/(?:^|[A-Z])[a-z]+/',$key,$matches);
     	$model = 'MacsiDigital\Xero\Models';
+        $i = 1;
     	foreach($matches[0] as $node){
-    		$model .= '\\'.$node;
+            if($i == 1){
+                $model .= '\\'.$node.'\\';
+                $i++;
+            } else {
+                $model .= $node;
+            }
     	}
     	if(class_exists($model)){
-    		return new $model($this->client);
+    		return new $model();
     	}
     }
 
