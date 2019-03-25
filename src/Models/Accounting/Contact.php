@@ -6,19 +6,19 @@ use MacsiDigital\Xero\Support\Model;
 
 class Contact extends Model
 {
-	const ENDPOINT = 'Contacts';
+    const ENDPOINT = 'Contacts';
     const NODE_NAME = 'Contact';
     const KEY_FIELD = 'ContactID';
-    
+
     protected $methods = ['get', 'post', 'put'];
 
     protected $attributes = [
-    	'ContactID' => '',
+        'ContactID' => '',
         'ContactNumber' => '',
         'AccountNumber' => '',
         'ContactStatus' => 'ACTIVE',
         'Name' => '',
-        'FirstName' => '', 
+        'FirstName' => '',
         'LastName' => '',
         'EmailAddress' => '',
         'SkypeUserName' => '',
@@ -47,7 +47,7 @@ class Contact extends Model
         'BatchPayments' => '',
         'Discount' => '',
         'Balances' => '',
-        'HasAttachments' => ''
+        'HasAttachments' => '',
     ];
 
     protected $relationships = [
@@ -56,14 +56,13 @@ class Contact extends Model
         'ContactPersons' => '\MacsiDigital\Xero\Models\Accounting\ContactPerson',
     ];
 
-    public function addAddress($item) 
+    public function addAddress($item)
     {
         $this->attributes['Addresses'][] = $item;
     }
 
-    public function addPhone($item) 
+    public function addPhone($item)
     {
         $this->attributes['Phones'][] = $item;
     }
-
 }

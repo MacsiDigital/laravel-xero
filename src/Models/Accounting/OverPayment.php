@@ -6,14 +6,14 @@ use MacsiDigital\Xero\Support\Model;
 
 class OverPayment extends Model
 {
-	const ENDPOINT = 'OverPayments';
+    const ENDPOINT = 'OverPayments';
     const NODE_NAME = 'OverPayment';
     const KEY_FIELD = 'OverPaymentID';
 
     protected $methods = ['get', 'post', 'put'];
 
-	protected $attributes = [
-		'Reference' => '',
+    protected $attributes = [
+        'Reference' => '',
         'Type' => '',
         'Contact' => '',
         'Date' => '',
@@ -31,13 +31,12 @@ class OverPayment extends Model
         'RemainingCredit' => '',
         'Allocations' => '',
         'Paymetns' => '',
-        'HasAttachments' => ''
-	];
+        'HasAttachments' => '',
+    ];
 
-	protected $relationships = [
+    protected $relationships = [
         'Contact' => '\MacsiDigital\Xero\Models\Accounting\Contact',
         'LineItems' => '\MacsiDigital\Xero\Models\Accounting\LineItem',
         'Payments' => '\MacsiDigital\Xero\Models\Accounting\Payment',
     ];
-
 }

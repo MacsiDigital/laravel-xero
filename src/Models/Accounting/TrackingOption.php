@@ -13,9 +13,8 @@ class TrackingOption extends Model
     protected $methods = ['get', 'post', 'put'];
 
     protected $attributes = [
-    	'TrackingOptionID' => '',
+        'TrackingOptionID' => '',
         'Name' => '',
-        'Status' => ''
+        'Status' => '',
     ];
-
 }

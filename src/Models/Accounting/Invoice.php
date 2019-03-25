@@ -13,7 +13,7 @@ class Invoice extends Model
     protected $methods = ['get', 'post', 'put'];
 
     protected $attributes = [
-    	'Type' => 'ACCREC',
+        'Type' => 'ACCREC',
         'Contact' => '',
         'LineItems' => [],
         'Date' => '',
@@ -43,7 +43,7 @@ class Invoice extends Model
         'FullyPaidOnDate' => '',
         'AmountCredited' => '',
         'UpdatedDateUTC' => '',
-        'CreditNotes' => []
+        'CreditNotes' => [],
     ];
 
     protected $relationships = [
@@ -54,7 +54,7 @@ class Invoice extends Model
         'Overpayments' => '\MacsiDigital\Xero\Models\Accounting\Overpayment',
     ];
 
-    public function addLineItem($item) 
+    public function addLineItem($item)
     {
         $this->attributes['LineItems'][] = $item;
     }

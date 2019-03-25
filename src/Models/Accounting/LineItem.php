@@ -9,11 +9,11 @@ class LineItem extends Model
     const ENDPOINT = 'LineItems';
     const NODE_NAME = 'LineItem';
     const KEY_FIELD = 'LineItemID';
-    
+
     protected $methods = ['get', 'post', 'put'];
 
     protected $attributes = [
-    	'Description' => '',
+        'Description' => '',
         'Quantity' => '',
         'UnitAmount' => '',
         'ItemCode' => '',
@@ -23,11 +23,10 @@ class LineItem extends Model
         'TaxAmount' => '',
         'LineAmount' => '',
         'Tracking' => '',
-        'DiscountRate' => ''
+        'DiscountRate' => '',
     ];
 
     protected $relationships = [
-        'Tracking' => '\MacsiDigital\Xero\Models\Accounting\TrackingCategory'
+        'Tracking' => '\MacsiDigital\Xero\Models\Accounting\TrackingCategory',
     ];
-
 }

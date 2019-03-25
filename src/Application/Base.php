@@ -6,14 +6,13 @@ use MacsiDigital\Xero\Support\Response;
 
 abstract class Base
 {
-
     protected $request;
 
     public function get($end_point)
     {
-        try{
-            return new Response($this->request->get($end_point));    
-        } catch(\Exception $e){
+        try {
+            return new Response($this->request->get($end_point));
+        } catch (\Exception $e) {
             return new Response($e->getResponse());
         }
     }
@@ -40,5 +39,4 @@ abstract class Base
     {
         return new Response($this->request->delete($end_point));
     }
-
 }

@@ -6,14 +6,14 @@ use MacsiDigital\Xero\Support\Model;
 
 class Payment extends Model
 {
-	const ENDPOINT = 'Payments';
+    const ENDPOINT = 'Payments';
     const NODE_NAME = 'Payment';
     const KEY_FIELD = 'PaymentID';
 
     protected $methods = ['get', 'post', 'put'];
 
-	protected $attributes = [
-		'Invoice' => '',
+    protected $attributes = [
+        'Invoice' => '',
         'CreditNote' => '',
         'Prepayment' => '',
         'Overpayment' => '',
@@ -26,16 +26,15 @@ class Payment extends Model
         'Status' => '',
         'PaymentType' => '',
         'UpdatedDateUTC' => '',
-        'PaymentID' => ''
-	];
+        'PaymentID' => '',
+    ];
 
-	protected $relationships = [
+    protected $relationships = [
         'CreditNote' => '\MacsiDigital\Xero\Models\Accounting\CreditNote',
         'Payments' => '\MacsiDigital\Xero\Models\Accounting\Payment',
         'Prepayments' => '\MacsiDigital\Xero\Models\Accounting\Prepayment',
         'Overpayments' => '\MacsiDigital\Xero\Models\Accounting\Overpayment',
         'Invoice' => '\MacsiDigital\Xero\Models\Accounting\Invoice',
-        'Account' => '\MacsiDigital\Xero\Models\Accounting\Account'
+        'Account' => '\MacsiDigital\Xero\Models\Accounting\Account',
     ];
-
 }
