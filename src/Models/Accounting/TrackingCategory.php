@@ -13,17 +13,16 @@ class TrackingCategory extends Model
     protected $methods = ['get', 'post', 'put'];
 
     protected $attributes = [
-    	'TrackingCategoryID' => '',
+        'TrackingCategoryID' => '',
         'Name' => '',
         'TrackingCategoryName' => '',
         'TrackingOptionName' => '',
         'Status' => '',
         'Options' => '',
-        'Option' => ''
+        'Option' => '',
     ];
 
     protected $relationships = [
-        'Options' => '\MacsiDigital\Xero\Models\Accounting\TrackingOption'
+        'Options' => '\MacsiDigital\Xero\Models\Accounting\TrackingOption',
     ];
-
 }

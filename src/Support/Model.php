@@ -1,11 +1,11 @@
-<?php 
+<?php
+
 namespace MacsiDigital\Xero\Support;
 
 use Illuminate\Support\Collection;
 
 abstract class Model
 {
-    
     protected $attributes = [];
     protected $relationships = [];
     protected $query_string = '';
@@ -25,7 +25,7 @@ abstract class Model
     }
 
     /**
-     * Get the resource uri of the class (Contacts) etc
+     * Get the resource uri of the class (Contacts) etc.
      *
      * @return string
      */
@@ -35,7 +35,7 @@ abstract class Model
     }
 
     /**
-     * Get the root node name.  Just the unqualified classname
+     * Get the root node name.  Just the unqualified classname.
      *
      * @return string
      */
@@ -45,7 +45,7 @@ abstract class Model
     }
 
     /**
-     * Get the unique key field
+     * Get the unique key field.
      *
      * @return string
      */
@@ -55,22 +55,24 @@ abstract class Model
     }
 
     /**
-     * Get the object unique ID
+     * Get the object unique ID.
      *
      * @return string
      */
     public function getID()
     {
         $index = $this->getKey();
+
         return $this->$index;
     }
 
-    public function hasID() 
+    public function hasID()
     {
         $index = $this->getKey();
-        if($this->$index != ''){
-            return true;    
+        if ($this->$index != '') {
+            return true;
         }
+
         return false;
     }
 
@@ -94,7 +96,6 @@ abstract class Model
         if ($this->attributeExists($key)) {
             return $this->getAttributeValue($key);
         }
-
     }
 
     /**
@@ -130,36 +131,38 @@ abstract class Model
      */
     public function setAttribute($key, $value)
     {
-        if($this->attributeExists($key)){
+        if ($this->attributeExists($key)) {
             $this->attributes[$key] = $value;
         }
+
         return $this;
     }
 
     public function processRelationships()
     {
-        foreach($this->relationships as $key => $class){
-            if(is_array($this->$key) && in_array($this->getKey(), $this->$key)){
-                if (!is_object($this->$key)) {
+        foreach ($this->relationships as $key => $class) {
+            if (is_array($this->$key) && in_array($this->getKey(), $this->$key)) {
+                if (! is_object($this->$key)) {
                     $this->attributes[$key] = ($class)::make($this->$key);
-                }       
+                }
             } else {
-                foreach($this->$key as $index => $item){
-                    if (!is_object($item)) {
+                foreach ($this->$key as $index => $item) {
+                    if (! is_object($item)) {
                         $this->attributes[$key][$index] = ($class)::make($item);
-                    }        
+                    }
                 }
             }
         }
+
         return $this;
     }
 
-    public function attributeExists($key) 
+    public function attributeExists($key)
     {
         return array_key_exists($key, $this->attributes);
     }
 
-    public function unsetAttribute($key) 
+    public function unsetAttribute($key)
     {
         $this->setAttribute($key, '');
     }
@@ -209,54 +212,59 @@ abstract class Model
         $this->unsetAttribuet($key);
     }
 
-    public static function make($attributes) 
+    public static function make($attributes)
     {
         $model = new static;
-        foreach($attributes as $attribute => $value){
+        foreach ($attributes as $attribute => $value) {
             $model->$attribute = $value;
         }
+
         return $model;
     }
 
-    public static function create($attributes) 
+    public static function create($attributes)
     {
         $model = static::make($attributes);
         $model->save();
+
         return $model;
     }
 
-    public function fill($attributes) 
+    public function fill($attributes)
     {
-        foreach($attributes as $attribute => $value){
+        foreach ($attributes as $attribute => $value) {
             $this->$attribute = $value;
         }
+
         return $this;
     }
 
-    public function update($attributes) 
+    public function update($attributes)
     {
         $this->fill($attributes)->save();
+
         return $this;
     }
 
     public function save()
     {
         $index = $this->GetKey();
-        if($this->hasID()){
-            if(in_array('put', $this->methods)){
+        if ($this->hasID()) {
+            if (in_array('put', $this->methods)) {
                 $this->response = $this->client->post($this->getEndpoint().'/'.$this->$index, $this->attributes);
-                if($this->response->getStatusCode() == '200'){
+                if ($this->response->getStatusCode() == '200') {
                     return $this->response->getContents();
                 } else {
                     return false;
                 }
             }
         } else {
-            if(in_array('post', $this->methods)){
+            if (in_array('post', $this->methods)) {
                 $this->response = $this->client->post($this->getEndpoint(), $this->attributes);
-                if($this->response->getStatusCode() == '200'){
+                if ($this->response->getStatusCode() == '200') {
                     $saved_item = $this->collect($this->response->getContents())->first();
-                    $this->$index = $saved_item->$index;    
+                    $this->$index = $saved_item->$index;
+
                     return $this->response->getContents();
                 } else {
                     return false;
@@ -267,10 +275,11 @@ abstract class Model
 
     public function where($key, $operator, $value)
     {
-        if($this->query_string == ''){
-            $this->query_string = "?where=";
+        if ($this->query_string == '') {
+            $this->query_string = '?where=';
         }
         $this->query_string .= urlencode($key.$operator.'"'.$value.'"');
+
         return $this;
     }
 
@@ -281,9 +290,9 @@ abstract class Model
 
     public function get()
     {
-        if(in_array('get', $this->methods)){
+        if (in_array('get', $this->methods)) {
             $this->response = $this->client->get($this->getEndpoint().$this->query_string);
-            if($this->response->getStatusCode() == '200'){
+            if ($this->response->getStatusCode() == '200') {
                 return $this->collect($this->response->getContents());
             } else {
                 return false;
@@ -293,9 +302,9 @@ abstract class Model
 
     public function all()
     {
-        if(in_array('get', $this->methods)){
+        if (in_array('get', $this->methods)) {
             $this->response = $this->client->get($this->getEndpoint());
-            if($this->response->getStatusCode() == '200'){
+            if ($this->response->getStatusCode() == '200') {
                 return $this->collect($this->response->getContents());
             } else {
                 return false;
@@ -305,9 +314,9 @@ abstract class Model
 
     public function find($id)
     {
-        if(in_array('get', $this->methods)){
+        if (in_array('get', $this->methods)) {
             $this->response = $this->client->get($this->getEndpoint().'/'.$id);
-            if($this->response->getStatusCode() == '200'){
+            if ($this->response->getStatusCode() == '200') {
                 return $this->collect($this->response->getContents())->first();
             } else {
                 return false;
@@ -317,24 +326,23 @@ abstract class Model
 
     public function delete($id)
     {
-        if(in_array('delete', $this->methods)){
+        if (in_array('delete', $this->methods)) {
             $this->response = $this->collect($this->client->delete($this->getEndpoint().'/'.$id));
-            if($this->response->getStatusCode() == '200'){
+            if ($this->response->getStatusCode() == '200') {
                 return $this->response->getContents();
             } else {
                 return false;
             }
         }
-        return;
     }
 
     protected function collect($response)
     {
         $items = [];
-        foreach($response[$this->getEndpoint()] as $item){
+        foreach ($response[$this->getEndpoint()] as $item) {
             $items[] = static::make($item);
         }
-        return new Collection($items);   
-    }
 
+        return new Collection($items);
+    }
 }

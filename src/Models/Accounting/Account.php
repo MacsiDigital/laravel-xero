@@ -6,14 +6,14 @@ use MacsiDigital\Xero\Support\Model;
 
 class Account extends Model
 {
-	const ENDPOINT = 'Accounts';
+    const ENDPOINT = 'Accounts';
     const NODE_NAME = 'Account';
     const KEY_FIELD = 'AccountID';
 
     protected $methods = ['get', 'post', 'put', 'delete'];
 
-	protected $attributes = [
-		'Code' => '',
+    protected $attributes = [
+        'Code' => '',
         'Name' => '',
         'Type' => '',
         'BankAccountNumber' => '',
@@ -30,7 +30,6 @@ class Account extends Model
         'ReportingCode' => '',
         'ReportingCodeName' => '',
         'HasAttachments' => '',
-        'UpdatedDateUTC' => ''
-	];
-
+        'UpdatedDateUTC' => '',
+    ];
 }

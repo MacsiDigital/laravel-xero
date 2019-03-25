@@ -1,7 +1,7 @@
 <?php
 
 return [
-	'oauth' => [
+    'oauth' => [
         'callback'    		=> config('app.url'),
         'consumer_key'      => env('XERO_KEY'),
         'consumer_secret'   => env('XERO_SECRET'),

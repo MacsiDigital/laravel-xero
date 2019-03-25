@@ -6,14 +6,14 @@ use MacsiDigital\Xero\Support\Model;
 
 class PrePayment extends Model
 {
-	const ENDPOINT = 'PrePayments';
+    const ENDPOINT = 'PrePayments';
     const NODE_NAME = 'PrePayment';
     const KEY_FIELD = 'PrePaymentID';
 
     protected $methods = ['get', 'post', 'put'];
 
-	protected $attributes = [
-		'Reference' => '',
+    protected $attributes = [
+        'Reference' => '',
         'Type' => '',
         'Contact' => '',
         'Date' => '',
@@ -30,13 +30,12 @@ class PrePayment extends Model
         'CurrencyRate' => '',
         'RemainingCredit' => '',
         'Allocations' => '',
-        'HasAttachments' => ''
-	];
+        'HasAttachments' => '',
+    ];
 
-	protected $relationships = [
+    protected $relationships = [
         'Contact' => '\MacsiDigital\Xero\Models\Accounting\Contact',
         'LineItems' => '\MacsiDigital\Xero\Models\Accounting\LineItem',
         'Allocation' => '\MacsiDigital\Xero\Models\Accounting\Allocation',
     ];
-
 }
