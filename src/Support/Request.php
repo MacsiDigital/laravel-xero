@@ -53,7 +53,6 @@ class Request
                 'body' => $this->prepareFields($fields)
             ]);
         } catch (\Exception $e) {
-        	dd($e);
             return $e->getResponse();
         }
     }

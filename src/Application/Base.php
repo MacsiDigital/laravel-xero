@@ -2,7 +2,6 @@
 
 namespace MacsiDigital\Xero\Application;
 
-use MacsiDigital\Zoom\Http\Request;
 use MacsiDigital\Xero\Support\Response;
 
 abstract class Base
