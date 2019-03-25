@@ -54,6 +54,17 @@ abstract class Model
         return static::KEY_FIELD;
     }
 
+    /**
+     * Get the root node name.  Just the unqualified classname
+     *
+     * @return string
+     */
+    public static function getID()
+    {
+        $index = $this->getKey();
+        return $this->$index;
+    }
+
     public function hasID() 
     {
         $index = $this->getKey();
