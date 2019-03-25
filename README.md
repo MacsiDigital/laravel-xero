@@ -1,8 +1,7 @@
 # Xero Laravel 
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/macsidigital/xero-laravel.svg?style=flat-square)](https://packagist.org/packages/macsidigital/xero-laravel)
-[![Build Status](https://img.shields.io/travis/macsidigital/xero-laravel/master.svg?style=flat-square)](https://travis-ci.org/macsidigital/xero-laravel)
-[![Quality Score](https://img.shields.io/scrutinizer/g/macsidigital/xero-laravel.svg?style=flat-square)](https://scrutinizer-ci.com/g/macsidigital/xero-laravel)
+[![Build Status](https://img.shields.io/travis/macsidigital/xero-laravel/master.svg?style=flat-square)](https://travis-ci.org/MacsiDigital/xero-laravel)
 [![Total Downloads](https://img.shields.io/packagist/dt/macsidigital/xero-laravel.svg?style=flat-square)](https://packagist.org/packages/macsidigital/xero-laravel)
 
 A little Laravel package to communicate with Xero.
@@ -138,13 +137,13 @@ Here is an example usage case for querying for a contact, creating if not found 
 
 At present we have the following resources
 
-Account
-Contacts
-Invoices
-Payments
-PrePayments
-OverPayments
-CreditNotes
+* Account
+* Contacts
+* Invoices
+* Payments
+* PrePayments
+* OverPayments
+* CreditNotes
 
 We plan to add more resources in the future but setting up additional models is straight forward, below is the invoice model setup.  If you create any models, then create a pull request and we will add into main repo.
 
