@@ -1,11 +1,11 @@
 {
-    "name": "macsidigital/xero-laravel",
+    "name": "macsidigital/laravel-xero",
     "description": "Xero Laravel package",
     "keywords": [
         "macsidigital",
-        "xero-laravel"
+        "laravel-xero"
     ],
-    "homepage": "https://github.com/macsidigital/xero-laravel",
+    "homepage": "https://github.com/macsidigital/laravel-xero",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -46,10 +46,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "MacsiDigital\\Xero\\XeroServiceProvider"
+                "MacsiDigital\\Xero\\Providers\\XeroServiceProvider"
             ],
             "aliases": {
-                "Xero": "MacsiDigital\\Xero\\XeroFacade"
+                "Xero": "MacsiDigital\\Xero\\Facades\\Xero"
             }
         }
     }

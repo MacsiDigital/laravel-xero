@@ -1,41 +1,46 @@
 <?php
 
-namespace MacsiDigital\Xero\Models\Accounting;
+namespace MacsiDigital\Xero;
 
 use MacsiDigital\Xero\Support\Model;
 
-class PrePayment extends Model
+class AccountingCreditNote extends Model
 {
-    const ENDPOINT = 'PrePayments';
-    const NODE_NAME = 'PrePayment';
-    const KEY_FIELD = 'PrePaymentID';
+    const ENDPOINT = 'CreditNotes';
+    const NODE_NAME = 'CreditNote';
+    const KEY_FIELD = 'CreditNoteID';
 
     protected $methods = ['get', 'post', 'put'];
 
     protected $attributes = [
-        'Reference' => '',
         'Type' => '',
         'Contact' => '',
         'Date' => '',
         'Status' => '',
         'LineAmountTypes' => '',
         'LineItems' => '',
+        'Payments' => '',
         'SubTotal' => '',
         'TotalTax' => '',
         'Total' => '',
         'UpdatedDateUTC' => '',
         'CurrencyCode' => '',
         'FullyPaidOnDate' => '',
-        'PrepaymentID' => '',
+        'CreditNoteID' => '',
+        'CreditNoteNumber' => '',
+        'Reference' => '',
+        'SentToContact' => '',
         'CurrencyRate' => '',
         'RemainingCredit' => '',
         'Allocations' => '',
+        'BrandingThemeID' => '',
         'HasAttachments' => '',
     ];
 
     protected $relationships = [
-        'Contact' => '\MacsiDigital\Xero\Models\Accounting\Contact',
-        'LineItems' => '\MacsiDigital\Xero\Models\Accounting\LineItem',
-        'Allocation' => '\MacsiDigital\Xero\Models\Accounting\Allocation',
+        'Contact' => '\MacsiDigital\Xero\AccountingContact',
+        'LineItems' => '\MacsiDigital\Xero\AccountingLineItem',
+        'Payments' => '\MacsiDigital\Xero\AccountingPayment',
+        'Allocation' => '\MacsiDigital\Xero\AccountingAllocation',
     ];
 }

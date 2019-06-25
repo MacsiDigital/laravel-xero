@@ -1,10 +1,10 @@
 <?php
 
-namespace MacsiDigital\Xero\Models\Accounting;
+namespace MacsiDigital\Xero;
 
 use MacsiDigital\Xero\Support\Model;
 
-class Allocation extends Model
+class AccountingAllocation extends Model
 {
     const ENDPOINT = 'Allocations';
     const NODE_NAME = 'Allocation';
@@ -19,6 +19,6 @@ class Allocation extends Model
     ];
 
     protected $relationships = [
-        'Invoice' => '\MacsiDigital\Xero\Models\Accounting\Invoice',
+        'Invoice' => '\MacsiDigital\Xero\AccountingInvoice',
     ];
 }

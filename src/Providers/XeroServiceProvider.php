@@ -1,7 +1,8 @@
 <?php
 
-namespace MacsiDigital\Xero;
+namespace MacsiDigital\Xero\Providers;
 
+use MacsiDigital\Xero\Xero;
 use Illuminate\Support\ServiceProvider;
 
 class XeroServiceProvider extends ServiceProvider
@@ -13,7 +14,7 @@ class XeroServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('xero.php'),
+                __DIR__.'/../../config/config.php' => config_path('xero.php'),
             ], 'config');
         }
     }
@@ -24,7 +25,7 @@ class XeroServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'xero');
+        $this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'xero');
 
         // Register the main class to use with the facade
         $this->app->singleton('xero', function () {

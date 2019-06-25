@@ -1,7 +1,7 @@
 # Changelog
 
-All notable changes to `xero-laravel` will be documented in this file
+All notable changes to `laravel-xero` will be documented in this file
 
-## 1.0.0 - 2019-03-19
+## 1.0.0 - 2019-06-25
 
 - initial release

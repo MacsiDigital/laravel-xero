@@ -1,10 +1,10 @@
 <?php
 
-namespace MacsiDigital\Xero\Models\Accounting;
+namespace MacsiDigital\Xero;
 
 use MacsiDigital\Xero\Support\Model;
 
-class OverPayment extends Model
+class AccountingOverPayment extends Model
 {
     const ENDPOINT = 'OverPayments';
     const NODE_NAME = 'OverPayment';
@@ -35,8 +35,8 @@ class OverPayment extends Model
     ];
 
     protected $relationships = [
-        'Contact' => '\MacsiDigital\Xero\Models\Accounting\Contact',
-        'LineItems' => '\MacsiDigital\Xero\Models\Accounting\LineItem',
-        'Payments' => '\MacsiDigital\Xero\Models\Accounting\Payment',
+        'Contact' => '\MacsiDigital\Xero\AccountingContact',
+        'LineItems' => '\MacsiDigital\Xero\AccountingLineItem',
+        'Payments' => '\MacsiDigital\Xero\AccountingPayment',
     ];
 }

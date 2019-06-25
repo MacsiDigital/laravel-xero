@@ -1,7 +1,8 @@
 <?php
 
-namespace MacsiDigital\Xero\Application;
+namespace MacsiDigital\Xero\Interfaces;
 
+use Exception;
 use MacsiDigital\Xero\Support\Response;
 
 abstract class Base
@@ -12,7 +13,7 @@ abstract class Base
     {
         try {
             return new Response($this->request->get($end_point));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return new Response($e->getResponse());
         }
     }
@@ -21,7 +22,7 @@ abstract class Base
     {
         try {
             return new Response($this->request->post($end_point, $fields));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return new Response($e->getResponse());
         }
     }
@@ -30,7 +31,7 @@ abstract class Base
     {
         try {
             return new Response($this->request->put($end_point, $fields));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return new Response($e->getResponse());
         }
     }

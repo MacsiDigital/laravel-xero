@@ -1,13 +1,13 @@
 <?php
 
-namespace MacsiDigital\Xero;
+namespace MacsiDigital\Xero\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \Macsidigital\XeroLaravel\Skeleton\SkeletonClass
  */
-class XeroFacade extends Facade
+class Xero extends Facade
 {
     /**
      * Get the registered name of the component.

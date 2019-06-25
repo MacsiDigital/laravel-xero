@@ -2,6 +2,7 @@
 
 namespace MacsiDigital\Xero\Support;
 
+use Exception;
 use Illuminate\Support\Collection;
 
 abstract class Model
@@ -62,7 +63,6 @@ abstract class Model
     public function getID()
     {
         $index = $this->getKey();
-
         return $this->$index;
     }
 
@@ -72,7 +72,6 @@ abstract class Model
         if ($this->$index != '') {
             return true;
         }
-
         return false;
     }
 
@@ -92,7 +91,6 @@ abstract class Model
         if (! $key) {
             return;
         }
-
         if ($this->attributeExists($key)) {
             return $this->getAttributeValue($key);
         }
@@ -134,7 +132,6 @@ abstract class Model
         if ($this->attributeExists($key)) {
             $this->attributes[$key] = $value;
         }
-
         return $this;
     }
 
@@ -153,7 +150,6 @@ abstract class Model
                 }
             }
         }
-
         return $this;
     }
 
@@ -218,7 +214,6 @@ abstract class Model
         foreach ($attributes as $attribute => $value) {
             $model->$attribute = $value;
         }
-
         return $model;
     }
 
@@ -226,7 +221,6 @@ abstract class Model
     {
         $model = static::make($attributes);
         $model->save();
-
         return $model;
     }
 
@@ -235,14 +229,12 @@ abstract class Model
         foreach ($attributes as $attribute => $value) {
             $this->$attribute = $value;
         }
-
         return $this;
     }
 
     public function update($attributes)
     {
         $this->fill($attributes)->save();
-
         return $this;
     }
 
@@ -255,7 +247,7 @@ abstract class Model
                 if ($this->response->getStatusCode() == '200') {
                     return $this->response->getContents();
                 } else {
-                    return false;
+                    throw new Exception('Status Code '.$this->response->getStatusCode());
                 }
             }
         } else {
@@ -264,10 +256,9 @@ abstract class Model
                 if ($this->response->getStatusCode() == '200') {
                     $saved_item = $this->collect($this->response->getContents())->first();
                     $this->$index = $saved_item->$index;
-
                     return $this->response->getContents();
                 } else {
-                    return false;
+                    throw new Exception('Status Code '.$this->response->getStatusCode());
                 }
             }
         }
@@ -279,7 +270,6 @@ abstract class Model
             $this->query_string = '?where=';
         }
         $this->query_string .= urlencode($key.$operator.'"'.$value.'"');
-
         return $this;
     }
 
@@ -295,7 +285,7 @@ abstract class Model
             if ($this->response->getStatusCode() == '200') {
                 return $this->collect($this->response->getContents());
             } else {
-                return false;
+                throw Exception('Status Code '.$this->response->getStatusCode());
             }
         }
     }
@@ -307,7 +297,7 @@ abstract class Model
             if ($this->response->getStatusCode() == '200') {
                 return $this->collect($this->response->getContents());
             } else {
-                return false;
+                throw new Exception('Status Code '.$this->response->getStatusCode());
             }
         }
     }
@@ -319,7 +309,7 @@ abstract class Model
             if ($this->response->getStatusCode() == '200') {
                 return $this->collect($this->response->getContents())->first();
             } else {
-                return false;
+                throw new Exception('Status Code '.$this->response->getStatusCode());
             }
         }
     }
@@ -331,7 +321,7 @@ abstract class Model
             if ($this->response->getStatusCode() == '200') {
                 return $this->response->getContents();
             } else {
-                return false;
+                throw new Exception('Status Code '.$this->response->getStatusCode());
             }
         }
     }
@@ -342,7 +332,6 @@ abstract class Model
         foreach ($response[$this->getEndpoint()] as $item) {
             $items[] = static::make($item);
         }
-
         return new Collection($items);
     }
 }

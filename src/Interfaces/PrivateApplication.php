@@ -1,6 +1,6 @@
 <?php
 
-namespace MacsiDigital\Xero\Application;
+namespace MacsiDigital\Xero\Interfaces;
 
 use MacsiDigital\Xero\Support\Request;
 

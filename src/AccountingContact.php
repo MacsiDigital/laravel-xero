@@ -1,10 +1,10 @@
 <?php
 
-namespace MacsiDigital\Xero\Models\Accounting;
+namespace MacsiDigital\Xero;
 
 use MacsiDigital\Xero\Support\Model;
 
-class Contact extends Model
+class AccountingContact extends Model
 {
     const ENDPOINT = 'Contacts';
     const NODE_NAME = 'Contact';
@@ -51,9 +51,9 @@ class Contact extends Model
     ];
 
     protected $relationships = [
-        'Addresses' => '\MacsiDigital\Xero\Models\Accounting\Address',
-        'Phones' => '\MacsiDigital\Xero\Models\Accounting\Phone',
-        'ContactPersons' => '\MacsiDigital\Xero\Models\Accounting\ContactPerson',
+        'Addresses' => '\MacsiDigital\Xero\AccountingAddress',
+        'Phones' => '\MacsiDigital\Xero\AccountingPhone',
+        'ContactPersons' => '\MacsiDigital\Xero\AccountingContactPerson',
     ];
 
     public function addAddress($item)

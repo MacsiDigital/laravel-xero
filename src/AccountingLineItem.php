@@ -1,10 +1,10 @@
 <?php
 
-namespace MacsiDigital\Xero\Models\Accounting;
+namespace MacsiDigital\Xero;
 
 use MacsiDigital\Xero\Support\Model;
 
-class LineItem extends Model
+class AccountingLineItem extends Model
 {
     const ENDPOINT = 'LineItems';
     const NODE_NAME = 'LineItem';
@@ -27,6 +27,6 @@ class LineItem extends Model
     ];
 
     protected $relationships = [
-        'Tracking' => '\MacsiDigital\Xero\Models\Accounting\TrackingCategory',
+        'Tracking' => '\MacsiDigital\Xero\AccountingTrackingCategory',
     ];
 }

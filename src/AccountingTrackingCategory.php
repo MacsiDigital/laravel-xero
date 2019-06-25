@@ -1,10 +1,10 @@
 <?php
 
-namespace MacsiDigital\Xero\Models\Accounting;
+namespace MacsiDigital\Xero;
 
 use MacsiDigital\Xero\Support\Model;
 
-class TrackingCategory extends Model
+class AccountingTrackingCategory extends Model
 {
     const ENDPOINT = 'TrackingCategories';
     const NODE_NAME = 'TrackingCategory';
@@ -23,6 +23,6 @@ class TrackingCategory extends Model
     ];
 
     protected $relationships = [
-        'Options' => '\MacsiDigital\Xero\Models\Accounting\TrackingOption',
+        'Options' => '\MacsiDigital\Xero\AccountingTrackingOption',
     ];
 }

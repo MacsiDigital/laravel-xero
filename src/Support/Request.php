@@ -2,6 +2,7 @@
 
 namespace MacsiDigital\Xero\Support;
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
@@ -35,7 +36,7 @@ class Request
         ];
 
         $this->client = new Client($options);
-
+        
         return $this;
     }
 
@@ -43,7 +44,7 @@ class Request
     {
         try {
             return $this->client->request('GET', $end_point);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $e->getResponse();
         }
     }
@@ -54,7 +55,7 @@ class Request
             return $this->client->post($end_point, [
                 'body' => $this->prepareFields($fields),
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $e->getResponse();
         }
     }
@@ -65,7 +66,7 @@ class Request
             return $this->client->put($end_point, [
                 'body' => $this->prepareFields($fields),
             ]);
-        } catch (\Exception $e) {
+        } catch (MacsiDigital\Exception $e) {
             return $e->getResponse();
         }
     }

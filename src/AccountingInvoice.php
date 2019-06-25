@@ -1,10 +1,10 @@
 <?php
 
-namespace MacsiDigital\Xero\Models\Accounting;
+namespace MacsiDigital\Xero;
 
 use MacsiDigital\Xero\Support\Model;
 
-class Invoice extends Model
+class AccountingInvoice extends Model
 {
     const ENDPOINT = 'Invoices';
     const NODE_NAME = 'Invoice';
@@ -47,11 +47,11 @@ class Invoice extends Model
     ];
 
     protected $relationships = [
-        'Contact' => '\MacsiDigital\Xero\Models\Accounting\Contact',
-        'LineItems' => '\MacsiDigital\Xero\Models\Accounting\LineItem',
-        'Payments' => '\MacsiDigital\Xero\Models\Accounting\Payment',
-        'Prepayments' => '\MacsiDigital\Xero\Models\Accounting\Prepayment',
-        'Overpayments' => '\MacsiDigital\Xero\Models\Accounting\Overpayment',
+        'Contact' => '\MacsiDigital\Xero\AccountingContact',
+        'LineItems' => '\MacsiDigital\Xero\AccountingLineItem',
+        'Payments' => '\MacsiDigital\Xero\AccountingPayment',
+        'Prepayments' => '\MacsiDigital\Xero\AccountingPrepayment',
+        'Overpayments' => '\MacsiDigital\Xero\AccountingOverpayment',
     ];
 
     public function addLineItem($item)

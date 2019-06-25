@@ -1,8 +1,9 @@
 # Xero Laravel 
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/macsidigital/xero-laravel.svg?style=flat-square)](https://packagist.org/packages/macsidigital/xero-laravel)
-[![Build Status](https://img.shields.io/travis/macsidigital/xero-laravel/master.svg?style=flat-square)](https://travis-ci.org/MacsiDigital/xero-laravel)
-[![Total Downloads](https://img.shields.io/packagist/dt/macsidigital/xero-laravel.svg?style=flat-square)](https://packagist.org/packages/macsidigital/xero-laravel)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/macsidigital/laravel-xero.svg?style=flat-square)](https://packagist.org/packages/macsidigital/laravel-xero)
+[![Build Status](https://img.shields.io/travis/macsidigital/laravel-xero/master.svg?style=flat-square)](https://travis-ci.org/MacsiDigital/laravel-xero)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/MacsiDigital/laravel-xero/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/MacsiDigital/laravel-xero/?branch=master)
+[![Total Downloads](https://img.shields.io/packagist/dt/macsidigital/laravel-xero.svg?style=flat-square)](https://packagist.org/packages/macsidigital/laravel-xero)
 
 A little Laravel package to communicate with Xero.
 
@@ -11,7 +12,7 @@ A little Laravel package to communicate with Xero.
 You can install the package via composer:
 
 ```bash
-composer require macsidigital/xero-laravel
+composer require macsidigital/laravel-xero
 ```
 
 ## Configuration file
@@ -19,7 +20,7 @@ composer require macsidigital/xero-laravel
 Publish the configuration file
 
 ```bash
-php artisan vendor:publish --provider="MacsiDigital\Xero\XeroServiceProvider"
+php artisan vendor:publish --provider="MacsiDigital\Xero\Providers\XeroServiceProvider"
 ```
 
 This will create a xero/config.php within your config directory. Check the Xero documentation for the relevant values in the config.php file.
@@ -30,6 +31,8 @@ Ensure that the location of the RSA keys matches.
 Everything has been setup to be similar to Laravel syntax.
 
 We also use a little bit of magic to work with Xero's model names.  In Xero there are a few different modules (Accounting, Payroll AU etc.), at the minute we only support a small part of the accounting area, but we have set naming so that additional modules can be added in future.
+
+If the response is anything other than a '200' then we will throw an exception, so use try catch blocks.
 
 So to use the conacts in the Accounting module we would use the following syntax.
 
@@ -148,11 +151,11 @@ At present we have the following resources
 We plan to add more resources in the future but setting up additional models is straight forward, below is the invoice model setup.  If you create any models, then create a pull request and we will add into main repo.
 
 ``` php
-	namespace MacsiDigital\Xero\Models\Accounting;
+	namespace MacsiDigital\Xero;
 
 	use MacsiDigital\Xero\Support\Model;
 
-	class Invoice extends Model
+	class AccountingInvoice extends Model
 	{
 	    const ENDPOINT = 'Invoices';
 	    const NODE_NAME = 'Invoice';
@@ -211,14 +214,7 @@ We plan to add more resources in the future but setting up additional models is 
 
 ### Testing
 
-At present there is no PHP Unit Testing, but we plan to add it in the future, one handy thing to note is on the save function we return a response which will be 'false' if there was a problem, so if you need to trouble shoot then catch this and query it like so
-
-``` php
-	$response = $contact->save();
-    if($response === false){
-        dd($response->getContents());
-    }
-```
+At present there is no PHP Unit Testing, but we plan to add it in the future.
 
 ### Changelog
 
