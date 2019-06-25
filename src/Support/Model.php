@@ -264,6 +264,7 @@ abstract class Model
                 if ($this->response->getStatusCode() == '200') {
                     $saved_item = $this->collect($this->response->getContents())->first();
                     $this->$index = $saved_item->$index;
+                    
                     return $this->response->getContents();
                 } else {
                     throw new Exception('Status Code '.$this->response->getStatusCode());

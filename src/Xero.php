@@ -12,7 +12,7 @@ class Xero
     public function __construct($type = 'Private')
     {
         $function = 'boot'.ucfirst($type).'Application';
-        if(method_exists($this, $function)) {
+        if (method_exists($this, $function)) {
             $this->$function();
         } else {
             throw new Exception('Application Interface type not known');
