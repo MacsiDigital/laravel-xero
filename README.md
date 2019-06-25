@@ -2,6 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/macsidigital/laravel-xero.svg?style=flat-square)](https://packagist.org/packages/macsidigital/laravel-xero)
 [![Build Status](https://img.shields.io/travis/macsidigital/laravel-xero/master.svg?style=flat-square)](https://travis-ci.org/MacsiDigital/laravel-xero)
+[![StyleCI](https://github.styleci.io/repos/193588958/shield?branch=master)](https://github.styleci.io/repos/193588958)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/MacsiDigital/laravel-xero/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/MacsiDigital/laravel-xero/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/macsidigital/laravel-xero.svg?style=flat-square)](https://packagist.org/packages/macsidigital/laravel-xero)
 
