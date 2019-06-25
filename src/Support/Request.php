@@ -36,7 +36,7 @@ class Request
         ];
 
         $this->client = new Client($options);
-        
+
         return $this;
     }
 

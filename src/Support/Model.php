@@ -63,6 +63,7 @@ abstract class Model
     public function getID()
     {
         $index = $this->getKey();
+        
         return $this->$index;
     }
 
@@ -72,6 +73,7 @@ abstract class Model
         if ($this->$index != '') {
             return true;
         }
+
         return false;
     }
 
@@ -132,6 +134,7 @@ abstract class Model
         if ($this->attributeExists($key)) {
             $this->attributes[$key] = $value;
         }
+
         return $this;
     }
 
@@ -214,6 +217,7 @@ abstract class Model
         foreach ($attributes as $attribute => $value) {
             $model->$attribute = $value;
         }
+
         return $model;
     }
 
@@ -221,6 +225,7 @@ abstract class Model
     {
         $model = static::make($attributes);
         $model->save();
+
         return $model;
     }
 
@@ -229,12 +234,14 @@ abstract class Model
         foreach ($attributes as $attribute => $value) {
             $this->$attribute = $value;
         }
+
         return $this;
     }
 
     public function update($attributes)
     {
         $this->fill($attributes)->save();
+
         return $this;
     }
 
@@ -270,6 +277,7 @@ abstract class Model
             $this->query_string = '?where=';
         }
         $this->query_string .= urlencode($key.$operator.'"'.$value.'"');
+
         return $this;
     }
 
@@ -332,6 +340,7 @@ abstract class Model
         foreach ($response[$this->getEndpoint()] as $item) {
             $items[] = static::make($item);
         }
+
         return new Collection($items);
     }
 }

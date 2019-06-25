@@ -3,23 +3,19 @@
 namespace MacsiDigital\Xero;
 
 use Illuminate\Support\Str;
-use MacsiDigital\Xero\AccountingAddress;
-use MacsiDigital\Xero\AccountingContact;
-use MacsiDigital\Xero\AccountingInvoice;
-use MacsiDigital\Xero\AccountingLineItem;
 use MacsiDigital\Xero\Interfaces\PrivateApplication;
 
 class Xero
 {
     public $client;
 
-    public function __construct($type='Private')
+    public function __construct($type = 'Private')
     {
         $function = 'boot'.ucfirst($type).'Application';
-        if(method_exists($this, $function)){
+        if(method_exists($this, $function)) {
             $this->$function();    
         } else {
-            throw new Exception("Application Interface type not known");
+            throw new Exception('Application Interface type not known');
         }
     }
 
@@ -35,7 +31,7 @@ class Xero
 
     public function getNode($key)
     {
-        $class = 'MacsiDigital\Xero\\' . Str::studly($key);
+        $class = 'MacsiDigital\Xero\\'.Str::studly($key);
         if (class_exists($class)) {
             return new $class();
         }
