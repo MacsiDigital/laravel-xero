@@ -209,7 +209,7 @@ abstract class Model
      */
     public function __unset($key)
     {
-        $this->unsetAttribuet($key);
+        $this->unsetAttribute($key);
     }
 
     public static function make($attributes)
