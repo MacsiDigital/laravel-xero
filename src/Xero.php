@@ -13,13 +13,13 @@ class Xero
     {
         $function = 'boot'.ucfirst($type).'Application';
         if(method_exists($this, $function)) {
-            $this->$function();    
+            $this->$function();
         } else {
             throw new Exception('Application Interface type not known');
         }
     }
 
-    public function bootPrivateApplication() 
+    public function bootPrivateApplication()
     {
         $this->client = (new PrivateApplication());
     }

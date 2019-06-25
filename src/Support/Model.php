@@ -63,7 +63,7 @@ abstract class Model
     public function getID()
     {
         $index = $this->getKey();
-        
+
         return $this->$index;
     }
 
@@ -153,6 +153,7 @@ abstract class Model
                 }
             }
         }
+
         return $this;
     }
 
