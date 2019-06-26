@@ -295,7 +295,7 @@ abstract class Model
             if ($this->response->getStatusCode() == '200') {
                 return $this->collect($this->response->getContents());
             } else {
-                throw Exception('Status Code '.$this->response->getStatusCode());
+                throw new Exception('Status Code '.$this->response->getStatusCode());
             }
         }
     }

@@ -16,6 +16,14 @@ You can install the package via composer:
 composer require macsidigital/laravel-xero
 ```
 
+The service provider should automatically register for For Laravel > 5.4.
+
+For Laravel < 5.5, open config/app.php and, within the providers array, append:
+
+``` php
+MacsiDigital\Xero\Providers\XeroServiceProvider::class
+```
+
 ## Configuration file
 
 Publish the configuration file
