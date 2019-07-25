@@ -324,7 +324,7 @@ abstract class Model
         }
     }
 
-    public function delete($id="")
+    public function delete($id = "")
     {
         if ($id == '') {
             $id = $this->getID();

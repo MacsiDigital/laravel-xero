@@ -76,7 +76,7 @@ class Request
             return $this->client->delete($end_point);
         } catch (Exception $e) {
             return $e->getResponse();
-        }       
+        }
     }
 
     private function prepareFields($fields)
