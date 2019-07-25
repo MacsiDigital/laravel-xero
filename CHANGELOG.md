@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-xero` will be documented in this file
 
+## 1.0.6 - 2019-07-25
+
+Change where clause to act like Laravel.
+
+You can now do either
+
+where('key', 'value')
+
+or
+
+where('key', '-', 'value')
+
 ## 1.0.5 - 2019-07-25
 
 Style Update

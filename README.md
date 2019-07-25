@@ -1,4 +1,4 @@
-# Xero Laravel 
+# Laravel package for Xero Accounting
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/macsidigital/laravel-xero.svg?style=flat-square)](https://packagist.org/packages/macsidigital/laravel-xero)
 [![Build Status](https://img.shields.io/travis/macsidigital/laravel-xero/master.svg?style=flat-square)](https://travis-ci.org/MacsiDigital/laravel-xero)
@@ -65,14 +65,22 @@ The filtered find function returns a Laravel Collection so you can use all the L
 
 ``` php
 	$xero = new \MacsiDigital\Xero\Xero;
-	$contacts = $xero->AccountingContact->where('Name', '==', 'Test Name')->get();
+	$contacts = $xero->AccountingContact->where('Name', '=', 'Test Name')->get();
 ```
 
 To only get a single item use the 'first' method
 
 ``` php
 	$xero = new \MacsiDigital\Xero\Xero;
-	$contact = $xero->AccountingContact->where('Name', '==', 'Test Name')->first();
+	$contact = $xero->AccountingContact->where('Name', '=', 'Test Name')->first();
+```
+
+You can also just passs the name and value if it is to equal
+
+``` php
+	$xero = new \MacsiDigital\Xero\Xero;
+	$contact = $xero->AccountingContact->where('Name', 'Test Name')->get();
+	$contact = $xero->AccountingContact->where('Name', 'Test Name')->first();
 ```
 
 ## Find by ID
@@ -113,7 +121,7 @@ We can create and update records using the save function, below is the full save
 Here is an example usage case for querying for a contact, creating if not found and then creating an invoice
 
 ``` php
-	$contact = $xero->AccountingContact->where('name', '==', 'Test Name')->first();
+	$contact = $xero->AccountingContact->where('name', 'Test Name')->first();
     if($contact == null){
         $contact = $xero->AccountingContact->make([
 	        'Name' => 'Test Name',
