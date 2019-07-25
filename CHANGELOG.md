@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-xero` will be documented in this file
 
+## 1.0.5 - 2019-07-25
+
+Style Update
+
 ## 1.0.4 - 2019-07-25
 
 Update delete method and other functions to use GetID function
