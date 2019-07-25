@@ -65,7 +65,7 @@ class Request
             return $this->client->put($end_point, [
                 'body' => $this->prepareFields($fields),
             ]);
-        } catch (MacsiDigital\Exception $e) {
+        } catch (Exception $e) {
             return $e->getResponse();
         }
     }
@@ -74,7 +74,7 @@ class Request
     {
         try {
             return $this->client->delete($end_point);
-        } catch (MacsiDigital\Exception $e) {
+        } catch (Exception $e) {
             return $e->getResponse();
         }       
     }

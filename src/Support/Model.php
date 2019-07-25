@@ -248,10 +248,9 @@ abstract class Model
 
     public function save()
     {
-        $index = $this->GetKey();
         if ($this->hasID()) {
             if (in_array('put', $this->methods)) {
-                $this->response = $this->client->post($this->getEndpoint().'/'.$this->$index, $this->attributes);
+                $this->response = $this->client->post($this->getEndpoint().'/'.$this->getID(), $this->attributes);
                 if ($this->response->getStatusCode() == '200') {
                     return $this->response->getContents();
                 } else {
@@ -263,6 +262,7 @@ abstract class Model
                 $this->response = $this->client->post($this->getEndpoint(), $this->attributes);
                 if ($this->response->getStatusCode() == '200') {
                     $saved_item = $this->collect($this->response->getContents())->first();
+                    $index = $this->GetKey();
                     $this->$index = $saved_item->$index;
 
                     return $this->response->getContents();
@@ -324,8 +324,11 @@ abstract class Model
         }
     }
 
-    public function delete($id)
+    public function delete($id="")
     {
+        if ($id == '') {
+            $id = $this->getID();
+        }
         if (in_array('delete', $this->methods)) {
             $this->response = $this->client->delete($this->getEndpoint().'/'.$id);
             if ($this->response->getStatusCode() == '200') {
