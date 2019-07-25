@@ -274,10 +274,10 @@ abstract class Model
         }
     }
 
-    public function where($key, $operator, $value="")
+    public function where($key, $operator, $value = '')
     {
-        if(in_array($key, $this->query_attributes)){
-            if($value == ""){
+        if (in_array($key, $this->query_attributes)){
+            if ($value == ""){
                 $value = $operator;
                 $operator = '=';
             }
@@ -290,18 +290,18 @@ abstract class Model
     public function getQueryString() 
     {
         $query_string = '';
-        if($this->queries != []){
+        if ($this->queries != []){
             $query_string .= '?';
             $i = 1;
-            foreach($this->queries as $query){
-                if($i>1){
+            foreach ($this->queries as $query){
+                if ($i>1){
                     $query_string .= '&';
                 }
-                $query_string  .= $query['key'].$query['operator'].$query['value'];
+                $query_string .= $query['key'].$query['operator'].$query['value'];
                 $i++;
             }
         }
-        
+
         return $query_string;
     }
 
@@ -346,7 +346,7 @@ abstract class Model
         }
     }
 
-    public function delete($id = "")
+    public function delete($id = '')
     {
         if ($id == '') {
             $id = $this->getID();

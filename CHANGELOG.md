@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-xero` will be documented in this file
 
+## 1.0.8 - 2019-07-25
+
+Style fixes
+
 ## 1.0.7 - 2019-07-25
 
 Fix type
