@@ -10,7 +10,6 @@ use GuzzleHttp\Subscriber\Oauth\Oauth1;
 class Request
 {
     protected $client;
-    protected $headers;
 
     public function bootPrivateApplication()
     {
@@ -73,9 +72,11 @@ class Request
 
     public function delete($end_point)
     {
-        return $this->client->delete($end_point, [
-            'headers' => $this->headers,
-        ]);
+        try {
+            return $this->client->delete($end_point);
+        } catch (MacsiDigital\Exception $e) {
+            return $e->getResponse();
+        }       
     }
 
     private function prepareFields($fields)

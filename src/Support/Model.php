@@ -327,9 +327,9 @@ abstract class Model
     public function delete($id)
     {
         if (in_array('delete', $this->methods)) {
-            $this->response = $this->collect($this->client->delete($this->getEndpoint().'/'.$id));
+            $this->response = $this->client->delete($this->getEndpoint().'/'.$id);
             if ($this->response->getStatusCode() == '200') {
-                return $this->response->getContents();
+                return $this->response->getStatusCode();
             } else {
                 throw new Exception('Status Code '.$this->response->getStatusCode());
             }
