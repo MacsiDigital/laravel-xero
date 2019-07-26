@@ -2,12 +2,13 @@
 
 namespace MacsiDigital\Xero;
 
+use Exception;
 use Illuminate\Support\Str;
 use MacsiDigital\Xero\Interfaces\PrivateApplication;
 
 class Xero
 {
-    public $client;
+    protected $client;
 
     public function __construct($type = 'Private')
     {
@@ -22,6 +23,11 @@ class Xero
     public function bootPrivateApplication()
     {
         $this->client = (new PrivateApplication());
+    }
+
+    public function getClient() 
+    {
+        return $this->client;
     }
 
     public function __get($key)

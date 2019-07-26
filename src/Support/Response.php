@@ -18,9 +18,9 @@ class Response
         return $this->response;
     }
 
-    public function getContents()
+    public function getBody()
     {
-        return json_decode($this->response->getBody()->getContents(), true);
+        return json_decode($this->response->getBody(), true);
     }
 
     public function getStatusCode()

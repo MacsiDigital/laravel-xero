@@ -27,9 +27,7 @@ class XeroServiceProvider extends ServiceProvider
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'xero');
 
-        // Register the main class to use with the facade
-        $this->app->singleton('xero', function () {
-            return new Xero;
-        });
+        $this->app->singleton('xero', 'MacsiDigital\Xero\Xero');
+        $this->app->bind('MacsiDigital\Xero\Contracts\Xero', 'MacsiDigital\Xero\Xero');
     }
 }

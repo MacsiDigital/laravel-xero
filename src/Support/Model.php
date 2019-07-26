@@ -4,6 +4,7 @@ namespace MacsiDigital\Xero\Support;
 
 use Exception;
 use Illuminate\Support\Collection;
+use MacsiDigital\Xero\Facades\Xero;
 
 abstract class Model
 {
@@ -23,7 +24,7 @@ abstract class Model
 
     public function __construct()
     {
-        $this->client = app()->xero->client;
+        $this->client = Xero::getClient();
     }
 
     /**
@@ -253,7 +254,7 @@ abstract class Model
             if (in_array('put', $this->methods)) {
                 $this->response = $this->client->post($this->getEndpoint().'/'.$this->getID(), $this->attributes);
                 if ($this->response->getStatusCode() == '200') {
-                    return $this->response->getContents();
+                    return $this->response->getBody();
                 } else {
                     throw new Exception('Status Code '.$this->response->getStatusCode());
                 }
@@ -262,11 +263,11 @@ abstract class Model
             if (in_array('post', $this->methods)) {
                 $this->response = $this->client->post($this->getEndpoint(), $this->attributes);
                 if ($this->response->getStatusCode() == '200') {
-                    $saved_item = $this->collect($this->response->getContents())->first();
+                    $saved_item = $this->collect($this->response->getBody())->first();
                     $index = $this->GetKey();
                     $this->$index = $saved_item->$index;
 
-                    return $this->response->getContents();
+                    return $this->response->getBody();
                 } else {
                     throw new Exception('Status Code '.$this->response->getStatusCode());
                 }
@@ -276,8 +277,8 @@ abstract class Model
 
     public function where($key, $operator, $value = '')
     {
-        if (in_array($key, $this->query_attributes)){
-            if ($value == ""){
+        if (in_array($key, $this->query_attributes)) {
+            if ($value == "") {
                 $value = $operator;
                 $operator = '=';
             }
@@ -290,11 +291,11 @@ abstract class Model
     public function getQueryString() 
     {
         $query_string = '';
-        if ($this->queries != []){
+        if ($this->queries != []) {
             $query_string .= '?';
             $i = 1;
-            foreach ($this->queries as $query){
-                if ($i>1){
+            foreach ($this->queries as $query) {
+                if ($i>1) {
                     $query_string .= '&';
                 }
                 $query_string .= $query['key'].$query['operator'].$query['value'];
@@ -315,7 +316,7 @@ abstract class Model
         if (in_array('get', $this->methods)) {
             $this->response = $this->client->get($this->getEndpoint().$this->getQueryString());
             if ($this->response->getStatusCode() == '200') {
-                return $this->collect($this->response->getContents());
+                return $this->collect($this->response->getBody());
             } else {
                 throw new Exception('Status Code '.$this->response->getStatusCode());
             }
@@ -327,7 +328,7 @@ abstract class Model
         if (in_array('get', $this->methods)) {
             $this->response = $this->client->get($this->getEndpoint());
             if ($this->response->getStatusCode() == '200') {
-                return $this->collect($this->response->getContents());
+                return $this->collect($this->response->getBody());
             } else {
                 throw new Exception('Status Code '.$this->response->getStatusCode());
             }
@@ -339,7 +340,7 @@ abstract class Model
         if (in_array('get', $this->methods)) {
             $this->response = $this->client->get($this->getEndpoint().'/'.$id);
             if ($this->response->getStatusCode() == '200') {
-                return $this->collect($this->response->getContents())->first();
+                return $this->collect($this->response->getBody())->first();
             } else {
                 throw new Exception('Status Code '.$this->response->getStatusCode());
             }
