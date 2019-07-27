@@ -58,7 +58,7 @@ abstract class Model
     }
 
     /**
-     * Get the response model
+     * Get the response model.
      *
      * @return response object
      */

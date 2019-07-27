@@ -11,5 +11,4 @@ interface Xero
     public function __get($key);
 
     public function getNode($key);
-
 }
