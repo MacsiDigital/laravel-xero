@@ -58,6 +58,16 @@ abstract class Model
     }
 
     /**
+     * Get the response model
+     *
+     * @return response object
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
      * Get the object unique ID.
      *
      * @return string
@@ -134,7 +144,21 @@ abstract class Model
     public function setAttribute($key, $value)
     {
         if ($this->attributeExists($key)) {
-            $this->attributes[$key] = $value;
+            if ($this->isRelationshipAttribute($key)) {
+                $class = new $this->relationships[$key];
+                if (is_array($value) && in_array($class->getKey(), $value)) {
+                    $class->fill($value);
+                    $this->attributes[$key] = $class;
+                } else {
+                    foreach ($value as $index => $class) {
+                        $new_class = new $this->relationships[$key];
+                        $new_class->fill($class);
+                        $this->attributes[$key][$index] = $new_class;
+                    }
+                }
+            } else {
+                $this->attributes[$key] = $value;
+            }
         }
 
         return $this;
@@ -162,6 +186,11 @@ abstract class Model
     public function attributeExists($key)
     {
         return array_key_exists($key, $this->attributes);
+    }
+
+    public function isRelationshipAttribute($key)
+    {
+        return array_key_exists($key, $this->relationships);
     }
 
     public function unsetAttribute($key)
@@ -214,17 +243,15 @@ abstract class Model
         $this->unsetAttribute($key);
     }
 
-    public static function make($attributes)
+    public function make($attributes)
     {
         $model = new static;
-        foreach ($attributes as $attribute => $value) {
-            $model->$attribute = $value;
-        }
+        $model->fill($attributes);
 
         return $model;
     }
 
-    public static function create($attributes)
+    public function create($attributes)
     {
         $model = static::make($attributes);
         $model->save();
@@ -254,7 +281,7 @@ abstract class Model
             if (in_array('put', $this->methods)) {
                 $this->response = $this->client->post($this->getEndpoint().'/'.$this->getID(), $this->attributes);
                 if ($this->response->getStatusCode() == '200') {
-                    return $this->response->getBody();
+                    return $this;
                 } else {
                     throw new Exception('Status Code '.$this->response->getStatusCode());
                 }
@@ -263,11 +290,9 @@ abstract class Model
             if (in_array('post', $this->methods)) {
                 $this->response = $this->client->post($this->getEndpoint(), $this->attributes);
                 if ($this->response->getStatusCode() == '200') {
-                    $saved_item = $this->collect($this->response->getBody())->first();
-                    $index = $this->GetKey();
-                    $this->$index = $saved_item->$index;
+                    $this->fill($this->response->getBody());
 
-                    return $this->response->getBody();
+                    return $this;
                 } else {
                     throw new Exception('Status Code '.$this->response->getStatusCode());
                 }
@@ -278,7 +303,7 @@ abstract class Model
     public function where($key, $operator, $value = '')
     {
         if (in_array($key, $this->query_attributes)) {
-            if ($value == "") {
+            if ($value == '') {
                 $value = $operator;
                 $operator = '=';
             }
@@ -288,14 +313,14 @@ abstract class Model
         return $this;
     }
 
-    public function getQueryString() 
+    public function getQueryString()
     {
         $query_string = '';
         if ($this->queries != []) {
             $query_string .= '?';
             $i = 1;
             foreach ($this->queries as $query) {
-                if ($i>1) {
+                if ($i > 1) {
                     $query_string .= '&';
                 }
                 $query_string .= $query['key'].$query['operator'].$query['value'];

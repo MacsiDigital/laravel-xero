@@ -25,7 +25,7 @@ class Xero
         $this->client = (new PrivateApplication());
     }
 
-    public function getClient() 
+    public function getClient()
     {
         return $this->client;
     }

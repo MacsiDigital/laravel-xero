@@ -2,7 +2,6 @@
 
 namespace MacsiDigital\Xero\Providers;
 
-use MacsiDigital\Xero\Xero;
 use Illuminate\Support\ServiceProvider;
 
 class XeroServiceProvider extends ServiceProvider
