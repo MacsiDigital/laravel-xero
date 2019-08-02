@@ -9,7 +9,7 @@ use MacsiDigital\Xero\Facades\Xero;
 abstract class Model
 {
     protected $attributes = [];
-    protected $query_attributes = [];
+    protected $queryAttributes = [];
     protected $relationships = [];
     protected $queries = [];
     protected $methods = [];
@@ -302,7 +302,7 @@ abstract class Model
 
     public function where($key, $operator, $value = '')
     {
-        if (in_array($key, $this->query_attributes)) {
+        if (in_array($key, $this->queryAttributes)) {
             if ($value == '') {
                 $value = $operator;
                 $operator = '=';

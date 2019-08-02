@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-xero` will be documented in this file
 
+## 1.0.10 - 2019-08-02
+
+Update to use $queryAttributes
+
 ## 1.0.9 - 2019-07-26
 
 Update guzzle responses to use getbody in stead of getContents. Also added Contracts and Facades to tie in with Laravel.
