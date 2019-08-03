@@ -317,14 +317,15 @@ abstract class Model
     {
         $query_string = '';
         if ($this->queries != []) {
-            $query_string .= '?';
+            $query_string .= '?where';
             $i = 1;
             foreach ($this->queries as $query) {
                 if ($i > 1) {
                     $query_string .= '&';
                 }
-                $query_string .= $query['key'].$query['operator'].urlencode($query['value']);
-                $i++;
+                $query_string .= urlencode($query['key'].$query['operator'].'"'.$query['value'].'"');
+
+              $i++;
             }
         }
 
