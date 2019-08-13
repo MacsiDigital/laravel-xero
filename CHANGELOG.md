@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-xero` will be documented in this file
 
+## 1.0.12 - 2019-08-13
+
+Bug fix on filtering
+
+## 1.0.11 - 2019-08-13
+
+Bug fix on filtering
+
 ## 1.0.10 - 2019-08-02
 
 Update to use $queryAttributes
