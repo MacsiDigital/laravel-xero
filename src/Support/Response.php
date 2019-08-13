@@ -27,4 +27,9 @@ class Response
     {
         return $this->response->getStatusCode();
     }
+
+    public function getReason()
+    {
+        return $this->response->getReasonPhrase();
+    }
 }

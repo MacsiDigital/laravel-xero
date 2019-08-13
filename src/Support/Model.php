@@ -283,7 +283,7 @@ abstract class Model
                 if ($this->response->getStatusCode() == '200') {
                     return $this;
                 } else {
-                    throw new Exception('Status Code '.$this->response->getStatusCode());
+                    throw new Exception('Status Code '.$this->response->getStatusCode().' - '.$this->response->getReason());
                 }
             }
         } else {
@@ -294,7 +294,7 @@ abstract class Model
 
                     return $this;
                 } else {
-                    throw new Exception('Status Code '.$this->response->getStatusCode());
+                    throw new Exception('Status Code '.$this->response->getStatusCode().' - '.$this->response->getReason());
                 }
             }
         }
@@ -317,7 +317,7 @@ abstract class Model
     {
         $query_string = '';
         if ($this->queries != []) {
-            $query_string .= '?where';
+            $query_string .= '?where=';
             $i = 1;
             foreach ($this->queries as $query) {
                 if ($i > 1) {
@@ -328,7 +328,7 @@ abstract class Model
               $i++;
             }
         }
-
+        
         return $query_string;
     }
 
@@ -344,7 +344,7 @@ abstract class Model
             if ($this->response->getStatusCode() == '200') {
                 return $this->collect($this->response->getBody());
             } else {
-                throw new Exception('Status Code '.$this->response->getStatusCode());
+                throw new Exception('Status Code '.$this->response->getStatusCode().' - '.$this->response->getReason());
             }
         }
     }
@@ -356,7 +356,7 @@ abstract class Model
             if ($this->response->getStatusCode() == '200') {
                 return $this->collect($this->response->getBody());
             } else {
-                throw new Exception('Status Code '.$this->response->getStatusCode());
+                throw new Exception('Status Code '.$this->response->getStatusCode().' - '.$this->response->getReason());
             }
         }
     }
@@ -368,7 +368,7 @@ abstract class Model
             if ($this->response->getStatusCode() == '200') {
                 return $this->collect($this->response->getBody())->first();
             } else {
-                throw new Exception('Status Code '.$this->response->getStatusCode());
+                throw new Exception('Status Code '.$this->response->getStatusCode().' - '.$this->response->getReason());
             }
         }
     }
@@ -383,7 +383,7 @@ abstract class Model
             if ($this->response->getStatusCode() == '200') {
                 return $this->response->getStatusCode();
             } else {
-                throw new Exception('Status Code '.$this->response->getStatusCode());
+                throw new Exception('Status Code '.$this->response->getStatusCode().' - '.$this->response->getReason());
             }
         }
     }
