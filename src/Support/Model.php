@@ -325,10 +325,10 @@ abstract class Model
                 }
                 $query_string .= urlencode($query['key'].$query['operator'].'"'.$query['value'].'"');
 
-              $i++;
+                $i++;
             }
         }
-        
+
         return $query_string;
     }
 
