@@ -55,10 +55,10 @@ class AccountingContact extends Model
         'Phones' => '\MacsiDigital\Xero\AccountingPhone',
         'ContactPersons' => '\MacsiDigital\Xero\AccountingContactPerson',
     ];
-  
-  	protected $queryAttributes = [
+
+    protected $queryAttributes = [
       'Name',
-      'EmailAddress'
+      'EmailAddress',
     ];
 
     public function addAddress($item)
