@@ -149,7 +149,7 @@ abstract class Model
                 if (is_array($value) && in_array($class->getKey(), $value)) {
                     $class->fill($value);
                     $this->attributes[$key] = $class;
-                } else if(is_object($value)){
+                } elseif (is_object($value)) {
                     $this->attributes[$key] = $value;
                 } else {
                     foreach ($value as $index => $class) {
