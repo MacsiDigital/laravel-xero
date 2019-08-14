@@ -149,6 +149,8 @@ abstract class Model
                 if (is_array($value) && in_array($class->getKey(), $value)) {
                     $class->fill($value);
                     $this->attributes[$key] = $class;
+                } else if(is_object($value)){
+                    $this->attributes[$key] = $value;
                 } else {
                     foreach ($value as $index => $class) {
                         $new_class = new $this->relationships[$key];
@@ -253,7 +255,7 @@ abstract class Model
 
     public function create($attributes)
     {
-        $model = static::make($attributes);
+        $model = $this->make($attributes);
         $model->save();
 
         return $model;

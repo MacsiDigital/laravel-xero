@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-xero` will be documented in this file
 
+## 1.0.13 - 2019-08-14
+
+Update to fix issue with relationships
+
 ## 1.0.12 - 2019-08-13
 
 Bug fix on filtering
