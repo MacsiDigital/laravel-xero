@@ -293,7 +293,7 @@ abstract class Model
                 $this->response = $this->client->post($this->getEndpoint(), $this->attributes);
                 if ($this->response->getStatusCode() == '200') {
                     $this->fill($this->collect($this->response->getBody())->first());
-                    
+
                     return $this;
                 } else {
                     throw new Exception('Status Code '.$this->response->getStatusCode().' - '.$this->response->getReason());
