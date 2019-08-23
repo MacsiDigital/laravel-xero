@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-xero` will be documented in this file
 
+## 1.0.15 - 2019-08-14
+
+Update incorrect name for prepayment and overpayment
+
 ## 1.0.14 - 2019-08-14
 
 Update to fix issue with relationships
