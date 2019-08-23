@@ -4,7 +4,7 @@ namespace MacsiDigital\Xero;
 
 use MacsiDigital\Xero\Support\Model;
 
-class AccountingPrePayment extends Model
+class AccountingPrepayment extends Model
 {
     const ENDPOINT = 'PrePayments';
     const NODE_NAME = 'PrePayment';
