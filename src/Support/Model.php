@@ -152,9 +152,10 @@ abstract class Model
                 } elseif (is_object($value)) {
                     $this->attributes[$key] = $value;
                 } else {
-                    foreach ($value as $index => $class) {
+                    foreach ($value as $index => $attributes) {
                         $new_class = new $this->relationships[$key];
-                        $new_class->fill($class);
+                        $new_class->fill($attributes);
+                        $this->attributes[$key] = [];
                         $this->attributes[$key][$index] = $new_class;
                     }
                 }
