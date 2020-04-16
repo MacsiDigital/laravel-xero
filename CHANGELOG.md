@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-xero` will be documented in this file
 
+## 1.1.0 - 2020-04-16
+
+Larvel 7.0 support
+
 ## 1.0.18 - 2019-10-10
 
 Fix relationship issue
