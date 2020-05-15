@@ -16,9 +16,8 @@
         }
     ],
     "require": {
-        "php": "^7.3",
-        "macsidigital/laravel-api-client": "dev-master",
-        "macsidigital/laravel-oauth2-client": "dev-master",
+        "php": "^7.2|^7.3",
+        "macsidigital/laravel-api-client": "^2.0",
         "illuminate/support": "^7.0"
     },
     "require-dev": {
