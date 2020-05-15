@@ -6,7 +6,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/MacsiDigital/laravel-xero/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/MacsiDigital/laravel-xero/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/macsidigital/laravel-xero.svg?style=flat-square)](https://packagist.org/packages/macsidigital/laravel-xero)
 
-A little Laravel package to communicate with Xero.
+Laravel Xero API.
 
 ## Installation
 
@@ -16,15 +16,7 @@ You can install the package via composer:
 composer require macsidigital/laravel-xero
 ```
 
-The service provider should automatically register for For Laravel > 5.4.
-
-For Laravel < 5.5, open config/app.php and, within the providers array, append:
-
-``` php
-MacsiDigital\Xero\Providers\XeroServiceProvider::class
-```
-
-## Configuration file
+### Configuration file
 
 Publish the configuration file
 
@@ -32,22 +24,42 @@ Publish the configuration file
 php artisan vendor:publish --provider="MacsiDigital\Xero\Providers\XeroServiceProvider"
 ```
 
-This will create a xero/config.php within your config directory. Check the Xero documentation for the relevant values in the config.php file.
-Ensure that the location of the RSA keys matches.
+This will create a xero.php within your config directory, Xero uses OAuth2 your config will look like this, you need to add XERO_CLIENT_ID and XERO_CLIENT_SECRET into your .env file.  Alse set the authorisedRedirect and failedRedirect settings, to set teh return URL after authenticated.
+
+```php
+return [
+	'baseUrl' => 'https://api.xero.com/api.xro/2.0',
+	'identityUrl' => 'https://api.xero.com/',
+    'oauth2' => [
+		'clientId' => env('XERO_CLIENT_ID'),
+		'clientSecret' => env('XERO_CLIENT_SECRET'),
+		'urlAuthorize' => 'https://login.xero.com/identity/connect/authorize',
+    	'urlAccessToken' => 'https://identity.xero.com/connect/token',
+    	'urlResourceOwnerDetails' => 'https://api.xero.com/api.xro/2.0/Organisation'
+	],
+	'options' => [
+		'scope' => ['openid email profile offline_access accounting.settings accounting.transactions accounting.contacts accounting.journals.read accounting.reports.read accounting.attachments']
+	],
+	'tokenProcessor' => '\MacsiDigital\Xero\Support\AuthorisationProcessor',
+	'tokenModel' => '\MacsiDigital\Xero\Support\Token\File',
+	'authorisedRedirect' => '/success',
+	'failedRedirect' => '/failed',
+];
+```
+
+That should be it.  To authenticate you need to point to 
+
+```php
+route('oauth2.authorise', ['integration' => 'xero']);
+```
 
 ## Usage
 
-Everything has been setup to be similar to Laravel syntax.
-
-We also use a little bit of magic to work with Xero's model names.  In Xero there are a few different modules (Accounting, Payroll AU etc.), at the minute we only support a small part of the accounting area, but we have set naming so that additional modules can be added in future.
-
-If the response is anything other than a '200' then we will throw an exception, so use try catch blocks.
-
-So to use the conacts in the Accounting module we would use the following syntax.
+Our wish for our API's is to get as close to Laravel syntax and handling as possible.  So anything you do in Laravel you should be able to do in the API.  yOur first call will be to the Xero Model and from there you request the element you want, so for example for retreive the first AccountContact's name
 
 ``` php
 	$xero = new \MacsiDigital\Xero\Xero;
-	$xero->AccountingContact->functionName();
+	$xero->AccountingContact->first()->name;
 ```
 
 ## Find all
@@ -65,21 +77,13 @@ The filtered find function returns a Laravel Collection so you can use all the L
 
 ``` php
 	$xero = new \MacsiDigital\Xero\Xero;
-	$contacts = $xero->AccountingContact->where('Name', '=', 'Test Name')->get();
+	$contacts = $xero->AccountingContact->where('Name', 'Test Name')->get();
 ```
 
 To only get a single item use the 'first' method
 
 ``` php
 	$xero = new \MacsiDigital\Xero\Xero;
-	$contact = $xero->AccountingContact->where('Name', '=', 'Test Name')->first();
-```
-
-You can also just passs the name and value if it is to equal
-
-``` php
-	$xero = new \MacsiDigital\Xero\Xero;
-	$contact = $xero->AccountingContact->where('Name', 'Test Name')->get();
 	$contact = $xero->AccountingContact->where('Name', 'Test Name')->first();
 ```
 
