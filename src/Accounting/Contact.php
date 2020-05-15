@@ -1,10 +1,10 @@
 <?php
 
-namespace MacsiDigital\Xero;
+namespace MacsiDigital\Xero\Accounting;
 
 use MacsiDigital\Xero\Support\Model;
 
-class AccountingContact extends Model
+class Contact extends Model
 {
     const ENDPOINT = 'Contacts';
     const NODE_NAME = 'Contact';
