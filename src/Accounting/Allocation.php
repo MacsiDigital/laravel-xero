@@ -1,10 +1,10 @@
 <?php
 
-namespace MacsiDigital\Xero;
+namespace MacsiDigital\Xero\Accounting;
 
 use MacsiDigital\Xero\Support\Model;
 
-class AccountingAllocation extends Model
+class Allocation extends Model
 {
     const ENDPOINT = 'Allocations';
     const NODE_NAME = 'Allocation';

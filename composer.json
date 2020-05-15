@@ -16,14 +16,15 @@
         }
     ],
     "require": {
-        "php": "^7.2|^7.3",
-        "guzzlehttp/guzzle": "~6.0|~5.0|~4.0",
-        "guzzlehttp/oauth-subscriber": "0.3.*",
-        "illuminate/support": "^6.0|^7.0"
+        "php": "^7.3",
+        "macsidigital/laravel-api-client": "dev-master",
+        "macsidigital/laravel-oauth2-client": "dev-master",
+        "illuminate/support": "^7.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0",
-        "phpunit/phpunit": "^8.0"
+        "mockery/mockery": "^1.0",
+        "orchestra/testbench": "^5.0",
+        "phpunit/phpunit": "^8.5"
     },
     "autoload": {
         "psr-4": {
@@ -49,7 +50,9 @@
                 "MacsiDigital\\Xero\\Providers\\XeroServiceProvider"
             ],
             "aliases": {
-                "Xero": "MacsiDigital\\Xero\\Facades\\Xero"
+                "Xero": "MacsiDigital\\Xero\\Facades\\Xero",
+                "Accounting": "MacsiDigital\\Xero\\Facades\\Accounting\\Api",
+                "Identity": "MacsiDigital\\Xero\\Facades\\Identity\\Api"
             }
         }
     }

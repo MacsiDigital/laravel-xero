@@ -14,7 +14,7 @@ class XeroServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../../config/config.php' => config_path('xero.php'),
-            ], 'config');
+            ], 'xero-config');
         }
     }
 
@@ -26,7 +26,12 @@ class XeroServiceProvider extends ServiceProvider
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'xero');
 
-        $this->app->singleton('xero', 'MacsiDigital\Xero\Xero');
-        $this->app->bind('MacsiDigital\Xero\Contracts\Xero', 'MacsiDigital\Xero\Xero');
+        $this->app->singleton('xero', 'MacsiDigital\Xero\Contracts\Xero');
+        $this->app->bind('MacsiDigital\Xero\Contracts\Xero', 'MacsiDigital\Xero\Api');
+
+        $this->app->bind('xero.client', 'MacsiDigital\Xero\Client');
+
+        $this->app->bind('xero.identity', 'MacsiDigital\Xero\Identity\Api');
+        $this->app->bind('xero.accounting', 'MacsiDigital\Xero\Accounting\Api');
     }
 }
