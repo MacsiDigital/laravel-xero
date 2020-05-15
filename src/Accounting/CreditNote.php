@@ -1,10 +1,10 @@
 <?php
 
-namespace MacsiDigital\Xero;
+namespace MacsiDigital\Xero\Accounting;
 
 use MacsiDigital\Xero\Support\Model;
 
-class AccountingCreditNote extends Model
+class CreditNote extends Model
 {
     const ENDPOINT = 'CreditNotes';
     const NODE_NAME = 'CreditNote';

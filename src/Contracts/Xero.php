@@ -2,13 +2,9 @@
 
 namespace MacsiDigital\Xero\Contracts;
 
-interface Xero
+use MacsiDigital\API\Facades\Client as ClientFacade;
+
+interface Xero extends ClientFacade
 {
-    public function __construct($type = 'Private');
 
-    public function getClient();
-
-    public function __get($key);
-
-    public function getNode($key);
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace MacsiDigital\Xero;
+namespace MacsiDigital\Xero\Accounting;
 
 use MacsiDigital\Xero\Support\Model;
 
-class AccountingTrackingCategory extends Model
+class TrackingCategory extends Model
 {
     const ENDPOINT = 'TrackingCategories';
     const NODE_NAME = 'TrackingCategory';

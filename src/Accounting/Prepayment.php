@@ -1,14 +1,14 @@
 <?php
 
-namespace MacsiDigital\Xero;
+namespace MacsiDigital\Xero\Accounting;
 
 use MacsiDigital\Xero\Support\Model;
 
-class AccountingOverpayment extends Model
+class Prepayment extends Model
 {
-    const ENDPOINT = 'OverPayments';
-    const NODE_NAME = 'OverPayment';
-    const KEY_FIELD = 'OverPaymentID';
+    const ENDPOINT = 'PrePayments';
+    const NODE_NAME = 'PrePayment';
+    const KEY_FIELD = 'PrePaymentID';
 
     protected $methods = ['get', 'post', 'put'];
 
@@ -26,17 +26,16 @@ class AccountingOverpayment extends Model
         'UpdatedDateUTC' => '',
         'CurrencyCode' => '',
         'FullyPaidOnDate' => '',
-        'OverpaymentID' => '',
+        'PrepaymentID' => '',
         'CurrencyRate' => '',
         'RemainingCredit' => '',
         'Allocations' => '',
-        'Paymetns' => '',
         'HasAttachments' => '',
     ];
 
     protected $relationships = [
         'Contact' => '\MacsiDigital\Xero\AccountingContact',
         'LineItems' => '\MacsiDigital\Xero\AccountingLineItem',
-        'Payments' => '\MacsiDigital\Xero\AccountingPayment',
+        'Allocation' => '\MacsiDigital\Xero\AccountingAllocation',
     ];
 }
